@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+>
+    <HBox
+        alignItems="Center"
+    >
+        <core:Icon 
+            src="{= %{type/ID} === '0' ? 'sap-icon://functional-location' : 'sap-icon://shelf'}"
+            color="{= %{type/ID} === '0' ? '#64E4CE' : '#E69A17'}"
+            size="24px"
+            class="sapUiTinyMarginEnd"
+        />
+        <ObjectIdentifier
+            title="{name}"
+            text="{description}"
+            tooltip="{= ${name} + ' - ' + ${description} }"
+        />
+    </HBox>
+</core:FragmentDefinition>

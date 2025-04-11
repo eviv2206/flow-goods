@@ -1,0 +1,213 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.yauheni.sapryn.storagemanagement",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.17.1",
+      "toolsId": "144d1def-f678-4648-9ae0-3a511c8120a6"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/StoragesService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.134.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.yauheni.sapryn.storagemanagement.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "StorageList",
+          "target": "StorageList"
+        },
+        {
+          "pattern": "Storage({key}):?query:",
+          "name": "StorageObjectPage",
+          "target": "StorageObjectPage"
+        }
+      ],
+      "targets": {
+        "StorageList": {
+          "type": "Component",
+          "id": "StorageList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Storage",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "Storage": {
+                  "detail": {
+                    "route": "StorageObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true,
+                    "showRowCount": true
+                  },
+                  "columns": {
+                    "StorageCustomColumn": {
+                      "header": "{i18n>com.storagemanagement.storage.label}",
+                      "width": "35%",
+                      "position": {
+                        "anchor": "DataField::type::name",
+                        "placement": "Before"
+                      },
+                      "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.StorageCustomColumn"
+                    }
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "all",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#All"
+                  },
+                  {
+                    "key": "SalePoint",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SalePoint"
+                  },
+                  {
+                    "key": "Warehouse",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#Warehouse"
+                  }
+                ],
+                "showCounts": true
+              }
+            }
+          }
+        },
+        "StorageObjectPage": {
+          "type": "Component",
+          "id": "StorageObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": true,
+              "contextPath": "/Storage",
+              "content": {
+                "body": {
+                  "sections": {
+                    "GeographyCustomSection": {
+                      "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.GeographyCustomSection",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "Products"
+                      },
+                      "title": "{i18n>com.storagemanagement.geography.label}"
+                    }
+                  }
+                },
+                "header": {
+                  "facets": {
+                    "StorageTypeCustomHeaderView": {
+                      "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.StorageTypeCustomHeaderView",
+                      "templateEdit": "com.yauheni.sapryn.storagemanagement.ext.fragment.StorageTypeCustomHeaderEdit",
+                      "position": {
+                        "placement": "Before",
+                        "anchor": "productsCount"
+                      },
+                      "title": "{i18n>com.storagemanagement.storageType.label}",
+                      "stashed": false,
+                      "requestGroupId": "Heroes",
+                      "flexSettings": {
+                        "designtime": "Default"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#com.yauheni.sapryn.storagemanagement::StorageObjectPage": {
+            "controllerName": "com.yauheni.sapryn.storagemanagement.ext.controller.ObjectPageExt"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

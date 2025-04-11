@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:vbm="sap.ui.vbm"
+>
+    <HBox>
+        <f:Form>
+            <f:layout>
+                <f:ResponsiveGridLayout
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    labelSpanXL="12"
+                    labelSpanL="12"
+                    labelSpanM="12"
+                    emptySpanXL="5"
+                    emptySpanL="5"
+                    emptySpanM="5"
+                    emptySpanS="5"
+                />
+            </f:layout>
+            <f:formContainers>
+                <f:FormContainer>
+                    <f:formElements>
+                        <f:FormElement
+                            label="{i18n>com.storagemanagement.city.label}"
+                        >
+                            <macros:Field id="idCity" metaPath="city_ID"/>
+                        </f:FormElement>
+                    </f:formElements>
+                    <f:formElements>
+                        <macros:FormElement
+                            metaPath="address"
+                            id="idAddress"
+                        />
+                    </f:formElements>
+                    <f:formElements>
+                        <macros:FormElement
+                            id="idlatitude"
+                            metaPath="longitude"
+                        />
+                    </f:formElements>
+                    <f:formElements>
+                        <macros:FormElement
+                            id="idlongitude"
+                            metaPath="latitude"
+                        />
+                    </f:formElements>
+                </f:FormContainer>
+            </f:formContainers>
+        </f:Form>
+        <VBox width="100%" height="100%">
+        <vbm:GeoMap
+            id="geoMap"
+            width="100%"
+            height="350px"
+            click=".extension.com.yauheni.sapryn.storagemanagement.ext.controller.ObjectPageExt.onMapClick"
+        >
+            <vbm:vos>
+                <vbm:Spots
+                    posChangeable="true"
+                    scaleChangeable="false"
+                >
+                    <vbm:items>
+                        <vbm:Spot position="{longitude};{latitude};0" />
+                    </vbm:items>
+                </vbm:Spots>
+            </vbm:vos>
+        </vbm:GeoMap>
+        </VBox>
+    </HBox>
+</core:FragmentDefinition>
