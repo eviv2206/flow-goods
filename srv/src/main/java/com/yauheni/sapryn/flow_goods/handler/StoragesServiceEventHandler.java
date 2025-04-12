@@ -8,27 +8,27 @@ import cds.gen.com.yauheni.sapryn.flowgoods.StorageEntity;
 import com.sap.cds.services.handler.annotations.ServiceName;
 import com.yauheni.sapryn.flow_goods.validation.StoragesValidationService;
 import com.sap.cds.services.cds.CdsCreateEventContext;
-import com.sap.cds.services.handler.annotations.On;
+import com.sap.cds.services.handler.EventHandler;
 import com.sap.cds.services.handler.annotations.Before;
 import lombok.AllArgsConstructor;
 
-import static com.sap.cds.services.cds.CqnService.EVENT_UPDATE;
+import static com.sap.cds.services.cds.CqnService.EVENT_CREATE;
 
 @Component
 @AllArgsConstructor
 @ServiceName(StoragesService_.CDS_NAME)
-public class StoragesServiceEventHandler {
+public class StoragesServiceEventHandler implements EventHandler {
 
     private final StoragesValidationService storagesValidationService;
     
-    @Before(event = {EVENT_UPDATE}, entity = Storage_.CDS_NAME)
-    public void onCreateStorage(Storage storage, CdsCreateEventContext context) {
+    @Before(event = EVENT_CREATE, entity = Storage_.CDS_NAME)
+    public void beforeCreateStorage(CdsCreateEventContext context, Storage storage) {
         StorageEntity newStorage = StorageEntity.create();
 
         newStorage.setId(storage.getId());
         newStorage.setName(storage.getName());
 
-        storagesValidationService.checkName(newStorage.getName());
+        storagesValidationService.validate(storage);
 
     }
 }

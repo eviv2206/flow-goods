@@ -6,4 +6,5 @@ public final class ValidationMessageKeys {
     }
 
     public static final String STORAGES_NAME_IS_EMPTY = "storageNameIsEmpty";
+    public static final String STORAGE_TYPE_IS_EMPTY = "storageTypeIsEmpty";
 }
