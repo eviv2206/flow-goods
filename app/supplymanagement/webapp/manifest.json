@@ -1,0 +1,180 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.yauheni.sapryn.supplymanagement",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.17.1",
+      "toolsId": "958ebd14-2aff-4061-8572-96efb7c42c1e"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/SuppliesService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.134.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.yauheni.sapryn.supplymanagement.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "SupplyList",
+          "target": "SupplyList"
+        },
+        {
+          "pattern": "Supply({key}):?query:",
+          "name": "SupplyObjectPage",
+          "target": "SupplyObjectPage"
+        }
+      ],
+      "targets": {
+        "SupplyList": {
+          "type": "Component",
+          "id": "SupplyList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Supply",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "Supply": {
+                  "detail": {
+                    "route": "SupplyObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true
+                  },
+                  "actions": {
+                    "CreateSupply": {
+                      "press": "com.yauheni.sapryn.supplymanagement.ext.CustomActions.onCreateSupply",
+                      "text": "{i18n>com.supplymanagement.button.create}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SupplyObjectPage": {
+          "type": "Component",
+          "id": "SupplyObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Supply",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.FieldGroup#ProductInfo": {
+                  "actions": {
+                    "NavigateToProduct": {
+                      "press": "com.yauheni.sapryn.supplymanagement.ext.CustomActions.onPressNavigateToProductManagement",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>com.supplymanagement.button.navigateToProductManagement}"
+                    }
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.FieldGroup#StorageInfo": {
+                  "actions": {
+                    "NavigateToStorage": {
+                      "press": "com.yauheni.sapryn.supplymanagement.ext.CustomActions.onPressNavigateToStorageManagement",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>com.supplymanagement.button.navigateToStorageManagement}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController#com.yauheni.sapryn.supplymanagement::SupplyList": {
+            "controllerName": "com.yauheni.sapryn.supplymanagement.ext.controller.ListReportExt"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

@@ -9,7 +9,7 @@ using com.yauheni.sapryn.flowgoods.StorageEntity from '../storage/StorageEntity'
 entity ProductStorageMapEntity : cuid, managed {
     product: Association to One ProductEntity;
     storage: Association to One StorageEntity;
-    quantityBase: Integer;
     quantityRemain: Integer;
+    quantityRemainStatus : Integer @Core.Computed;
     price: Decimal(10, 2);
 }

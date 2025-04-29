@@ -24,6 +24,19 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "productmanager-display": {
+          "semanticObject": "productmanager",
+          "action": "display",
+          "title": "{{appTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
@@ -92,11 +105,6 @@
           "pattern": "Product({key}):?query:",
           "name": "ProductObjectPage",
           "target": "ProductObjectPage"
-        },
-        {
-          "pattern": "Product({key})/placement({key2}):?query:",
-          "name": "ProductStorageMapObjectPage",
-          "target": "ProductStorageMapObjectPage"
         }
       ],
       "targets": {
@@ -108,6 +116,7 @@
             "settings": {
               "contextPath": "/Product",
               "variantManagement": "Page",
+              "initialLoad": "Enabled",
               "navigation": {
                 "Product": {
                   "detail": {
@@ -118,7 +127,8 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true
                   }
                 }
               }
@@ -133,25 +143,71 @@
             "settings": {
               "editableHeaderContent": false,
               "contextPath": "/Product",
-              "navigation": {
-                "placement": {
-                  "detail": {
-                    "route": "ProductStorageMapObjectPage"
+              "content": {
+                "body": {
+                  "sections": {
+                    "GeneralInfoCustomSection": {
+                      "template": "com.yauheni.sapryn.productmanagement.ext.fragment.GeneralInfoCustomSection",
+                      "title": "{i18n>com.productmanagement.generalInfo.label}",
+                      "position": {
+                        "placement": "Before",
+                        "anchor": "Placements"
+                      }
+                    },
+                    "ProductTypeCustomSection": {
+                      "template": "com.yauheni.sapryn.productmanagement.ext.fragment.ProductTypeCustomSection",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "Placements"
+                      },
+                      "title": "{i18n>com.productmanagement.title.productType}"
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "placement/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true,
+                    "showRowCount": true,
+                    "selectionMode": "Single"
+                  },
+                  "columns": {
+                    "ProductRemainQuantityCustomColumn": {
+                      "header": "{i18n>com.productmanagement.remainQuantity.label}",
+                      "width": "20%",
+                      "horizontalAlign": "Right",
+                      "position": {
+                        "anchor": "DataField::price",
+                        "placement": "Before"
+                      },
+                      "template": "com.yauheni.sapryn.productmanagement.ext.fragment.RemainQuantityCustomColumn",
+                      "availability": "Default",
+                      "properties": [
+                        "quantityRemain"
+                      ]
+                    }
+                  },
+                  "actions": {
+                    "moveToStorage": {
+                      "press": "com.yauheni.sapryn.productmanagement.ext.CustomActions.onMoveToAnotherStorage",
+                      "requiresSelection": true,
+                      "text": "{i18n>com.productmanagement.moveToStorage.button}"
+                    }
                   }
                 }
               }
             }
           }
-        },
-        "ProductStorageMapObjectPage": {
-          "type": "Component",
-          "id": "ProductStorageMapObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/Product/placement"
-            }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#com.yauheni.sapryn.productmanagement::ProductObjectPage": {
+            "controllerName": "com.yauheni.sapryn.productmanagement.ext.controller.ObjectPageExt"
           }
         }
       }

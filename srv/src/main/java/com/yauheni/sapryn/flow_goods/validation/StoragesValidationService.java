@@ -26,7 +26,7 @@ public class StoragesValidationService {
     private void checkStorageType(Storage storage) {
         if (storage.getTypeId() == null) {
             message.error(STORAGE_TYPE_IS_EMPTY)
-                    .target(Storage_.class, Storage_::name);
+                    .target(Storage_.class, Storage_::type_ID);
         }
     }
 

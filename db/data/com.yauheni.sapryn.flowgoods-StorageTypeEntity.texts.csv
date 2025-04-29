@@ -1,5 +1,5 @@
 ID,locale,name
-0,en,Warehouse
-1,en,Sale Point
-0,ru,Склад
-1,ru,Торговая точка
+1,ru,Основной склад
+1,en,Warehouse
+0,ru,Точка продаж
+0,en,Sale Point

@@ -1,0 +1,184 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Dialog
+        id="idCreateSupplyDialog"
+        title="{i18n>com.supplymanagement.heading.newSupply}"
+        contentWidth="50%"
+    >
+        <content>
+            <f:SimpleForm
+                id="idCreateSupplySimpleForm"
+                validateFieldGroup="onValidateCreateSupplyFieldGroup"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                labelSpanXL="12"
+                labelSpanL="12"
+                labelSpanM="12"
+            >
+                <f:content>
+                    <Label
+                        id="idNameCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.name}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <Input
+                        id="idNameCreateSupplyInput"
+                        width="100%"
+                        value="{
+                            path: 'formData>/name',
+                            type: 'sap.ui.model.type.String'
+                        }"
+                        liveChange="onValidateCreateSupplyFieldGroup"
+                        valueLiveUpdate="true"
+                        maxLength="40"
+                        required="true"
+                    />
+
+                    <Label
+                        id="idDescriptionCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.description}"
+                        showColon="true"
+                    />
+                    <TextArea
+                        id="idDescriptionCreateSupplyTextArea"
+                        width="100%"
+                        rows="2"
+                        value="{
+                            path: 'formData>/description',
+                            type: 'sap.ui.model.type.String'
+                        }"
+                        liveChange="onValidateCreateSupplyFieldGroup"
+                        valueLiveUpdate="true"
+                        maxLength="256"
+                    />
+
+                    <Label
+                        id="idNameSupplierCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.supplierName}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <Input
+                        id="idNameSupplierCreateSupplyInput"
+                        width="100%"
+                        value="{
+                            path: 'formData>/nameSupplier',
+                            type: 'sap.ui.model.type.String'
+                        }"
+                        liveChange="onValidateCreateSupplyFieldGroup"
+                        valueLiveUpdate="true"
+                        maxLength="40"
+                        required="true"
+                    />
+
+                    <Label
+                        id="idDateCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.date}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <macros:Field
+                        id="idDateCreateSupplyInput"
+                        metaPath="dateSupply"
+                        value="{formData>/dateSupply}"
+                        change="validateMacrosField"
+                    />
+
+                    <Label
+                        id="idProductCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.product}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <macros:Field
+                        id="idProductCreateSupplyInput"
+                        metaPath="toProductStorage/product_ID"
+                        value="{formData>/product_ID}"
+                        change="validateMacrosField"
+                    />
+
+                    <Label
+                        id="idStorageCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.storageToMove}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <macros:Field
+                        id="idStorageCreateSupplyInput"
+                        metaPath="toProductStorage/storage_ID"
+                        value="{formData>/storage_ID}"
+                        change="validateMacrosField"
+                    />
+
+                    <Label
+                        id="idQuantityCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.quantity}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <Input
+                        id="idQuantityCreateSupplyInput"
+                        width="100%"
+                        value="{
+                            path: 'formData>/quantity',
+                            type: 'sap.ui.model.type.Integer',
+                            constraints: {
+                                minimum: 1
+                            }
+                        }"
+                        type="Number"
+                        liveChange="onValidateCreateSupplyFieldGroup"
+                        valueLiveUpdate="true"
+                        maxLength="40"
+                        required="true"
+                    />
+
+                    <Label
+                        id="idTotalPriceCreateSupplyLabel"
+                        text="{i18n>com.supplymanagement.label.totalPrice}"
+                        required="true"
+                        showColon="true"
+                    />
+                    <Input
+                        id="idTotalPriceCreateSupplyInput"
+                        width="100%"
+                        value="{
+                            path: 'formData>/totalPrice',
+                            type: 'sap.ui.model.type.Float',
+                            constraints: {
+                                minimum: 1
+                            }
+                        }"
+                        type="Number"
+                        liveChange="onValidateCreateSupplyFieldGroup"
+                        valueLiveUpdate="true"
+                        maxLength="40"
+                        required="true"
+                    />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <buttons>
+            <Button
+                id="idCreateSupplyButton"
+                type="Emphasized"
+                text="{i18n>com.supplymanagement.button.create}"
+                press="onCreateSupplyButtonPress"
+                enabled="false"
+            />
+            <Button
+                id="idCloseCreateSupplyButton"
+                text="{i18n>com.supplymanagement.button.close}"
+                press="onCloseCreateSupplyButtonPress"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

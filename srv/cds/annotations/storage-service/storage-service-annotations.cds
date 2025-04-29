@@ -21,16 +21,15 @@ annotate StoragesService.Storage with @(
     UI          : {
 
         SelectionPresentationVariant #All      : {
-            Text : '{i18n>all}',
-            SelectionVariant: {
-                Text         : '{i18n>all}',
+            Text               : '{i18n>all}',
+            SelectionVariant   : {Text: '{i18n>all}',
             },
-            PresentationVariant : ![@UI.PresentationVariant],
+            PresentationVariant: ![@UI.PresentationVariant],
         },
 
         SelectionPresentationVariant #SalePoint: {
-            Text         : '{i18n>storage.type.salePoint}',
-            SelectionVariant: {
+            Text               : '{i18n>storage.type.salePoint}',
+            SelectionVariant   : {
                 Text         : '{i18n>storage.type.salePoint}',
                 SelectOptions: [{
                     PropertyName: type_ID,
@@ -42,13 +41,13 @@ annotate StoragesService.Storage with @(
                     }]
                 }],
             },
-            PresentationVariant : ![@UI.PresentationVariant]
+            PresentationVariant: ![@UI.PresentationVariant]
         },
 
         SelectionPresentationVariant #Warehouse: {
-            Text: '{i18n>storage.type.warehouse}',
-            SelectionVariant: {
-                Text        : '{i18n>storage.type.warehouse}',
+            Text               : '{i18n>storage.type.warehouse}',
+            SelectionVariant   : {
+                Text         : '{i18n>storage.type.warehouse}',
                 SelectOptions: [{
                     PropertyName: type_ID,
                     Ranges      : [{
@@ -59,18 +58,17 @@ annotate StoragesService.Storage with @(
                     }]
                 }]
             },
-            PresentationVariant         : ![@UI.PresentationVariant]
+            PresentationVariant: ![@UI.PresentationVariant]
         },
 
-        PresentationVariant  : {
-            SortOrder: [{
-                Property: modifiedAt,
-                Descending: true,
-            }]
-            
+        PresentationVariant                    : {SortOrder: [{
+            Property  : modifiedAt,
+            Descending: true,
+        }]
+
         },
 
-        LineItem                   : [
+        LineItem                               : [
             {
                 $Type                : 'UI.DataField',
                 Value                : type.name,
@@ -92,7 +90,7 @@ annotate StoragesService.Storage with @(
                 ![@HTML5.CssDefaults]: {width: '35%'},
                 ![@UI.Importance]    : #High
             },
-                        {
+            {
                 $Type                : 'UI.DataField',
                 Value                : modifiedAt,
                 Label                : '{i18n>modifiedAt}',
@@ -137,13 +135,13 @@ annotate StoragesService.Storage with @(
 
         ],
 
-        SelectionFields            : [
+        SelectionFields                        : [
             type_ID,
             city_ID,
             address,
         ],
 
-        HeaderInfo                 : {
+        HeaderInfo                             : {
             Title         : {
                 $Type: 'UI.DataField',
                 Value: name,
@@ -156,29 +154,29 @@ annotate StoragesService.Storage with @(
             },
         },
 
-        HeaderFacets               : [{
+        HeaderFacets                           : [{
             $Type : 'UI.ReferenceFacet',
             ID    : 'productsCount',
             Label : '{i18n>storage.productsCount}',
             Target: '@UI.DataPoint#productsCount',
         }],
 
-        Facets                     : [
+        Facets                                 : [
+            {
+                $Type : 'UI.ReferenceFacet',
+                Label : '{i18n>storage.products}',
+                ID    : 'Products',
+                Target: 'products/@UI.PresentationVariant',
+            },
             {
                 $Type : 'UI.ReferenceFacet',
                 Label : '{i18n>adminInformation}',
                 ID    : 'AdminInfo',
                 Target: '@UI.FieldGroup#Admin',
             },
-            {
-                $Type : 'UI.ReferenceFacet',
-                Label : '{i18n>storage.products}',
-                ID    : 'Products',
-                Target: 'products/@UI.LineItem#Products',
-            }
         ],
 
-        FieldGroup #Admin          : {Data: [
+        FieldGroup #Admin                      : {Data: [
             {
                 $Type: 'UI.DataField',
                 Value: createdBy
@@ -197,7 +195,7 @@ annotate StoragesService.Storage with @(
             }
         ]},
 
-        DataPoint #productsCount   : {
+        DataPoint #productsCount               : {
             $Type: 'UI.DataPointType',
             Value: productsCount,
             Title: '{i18n>storage.totalProductsCount}',
@@ -205,46 +203,75 @@ annotate StoragesService.Storage with @(
     },
 );
 
-annotate StoragesService.ProductStorageMap with @(UI: {LineItem #Products: [
-    {
-        $Type                : 'UI.DataField',
-        Value                : product.name,
-        Label                : '{i18n>product.name}',
-        ![@HTML5.CssDefaults]: {width: '35%'},
-        ![@UI.Importance]    : #High
+annotate StoragesService.ProductStorageMap with @(UI: {
+    DeleteHidden       : true,
+    LineItem           : {
+        $value            : [
+            {
+                $Type                  : 'UI.DataField',
+                Value                  : product.name,
+                Label                  : '{i18n>product.name}',
+                ![@HTML5.CssDefaults]  : {width: '35%'},
+                ![@UI.Importance]      : #High,
+                ![@Common.FieldControl]: #ReadOnly,
+            },
+            {
+                $Type                  : 'UI.DataField',
+                Value                  : quantityRemain,
+                Label                  : '{i18n>product.quantityRemain}',
+                ![@HTML5.CssDefaults]  : {width: '35%'},
+                ![@UI.Importance]      : #High,
+                ![@Common.FieldControl]: #ReadOnly,
+            },
+            {
+                $Type                  : 'UI.DataField',
+                Value                  : price,
+                Label                  : '{i18n>product.price}',
+                ![@HTML5.CssDefaults]  : {width: '35%'},
+                ![@UI.Importance]      : #High,
+                ![@Common.FieldControl]: #ReadOnly,
+            },
+            {
+                $Type        : 'UI.DataField',
+                Value        : quantityRemain,
+                ![@UI.Hidden]: true,
+            },
+            {
+                $Type        : 'UI.DataField',
+                Value        : quantityRemainStatus,
+                ![@UI.Hidden]: true,
+            },
+            {
+                $Type        : 'UI.DataField',
+                Value        : storage_ID,
+                ![@UI.Hidden]: true,
+            },
+        ],
+        ![@UI.Criticality]: quantityRemainStatus
     },
-    {
-        $Type                : 'UI.DataField',
-        Value                : quantityBase,
-        Label                : '{i18n>product.quantityBase}',
-        ![@HTML5.CssDefaults]: {width: '35%'},
-        ![@UI.Importance]    : #High
+
+    PresentationVariant: {
+        SortOrder     : [{
+            Property  : modifiedAt,
+            Descending: true,
+        }],
+
+        RequestAtLeast: [quantityRemainStatus],
+        Visualizations: ['@UI.LineItem']
+
     },
-    {
-        $Type                : 'UI.DataField',
-        Value                : quantityRemain,
-        Label                : '{i18n>product.quantityRemain}',
-        ![@HTML5.CssDefaults]: {width: '35%'},
-        ![@UI.Importance]    : #High
-    },
-    {
-        $Type                : 'UI.DataField',
-        Value                : price,
-        Label                : '{i18n>product.price}',
-        ![@HTML5.CssDefaults]: {width: '35%'},
-        ![@UI.Importance]    : #High
-    },
-], });
+});
 
 annotate StoragesService.StorageCity with {
     @title: '{i18n>storage.city.name}'
+    @UI.HiddenFilter: true
     ID @Common: {
         Text           : name,
         TextArrangement: #TextOnly,
     };
 
     @title: '{i18n>storage.city.name}'
-    name;
+    name @UI.HiddenFilter: true;
 };
 
 annotate StoragesService.StorageType with {
@@ -259,15 +286,67 @@ annotate StoragesService.StorageType with {
 };
 
 annotate StoragesService.ProductStorageMap with {
-    @title: '{i18n>product.quantityBase}'
-    quantityBase;
+    @UI.Hidden: true
+    ID;
 
-    @title: '{i18n>product.quantityRemain}'
+    @title    : '{i18n>product.quantityRemain}'
+    @mandatory
     quantityRemain;
 
-    @title: '{i18n>product.price}'
+    @title    : '{i18n>product.price}'
     price;
+
+    @title    : '{i18n>storage.storage}'
+    @mandatory
+    storage @Common: {
+        Text                    : storage.name,
+        TextArrangement         : #TextOnly,
+        ValueListWithFixedValues: false,
+        ValueList               : {
+            $Type                  : 'Common.ValueListType',
+            CollectionPath         : 'Storage',
+            DistinctValuesSupported: true,
+            SearchSupported        : true,
+            Parameters             : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: storage_ID,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'type/name',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'city/name',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'address',
+                },
+            ]
+        },
+    };
+
+    @UI.Hidden: true
+    @readonly
+    product;
 };
+
+annotate StoragesService.Product with {
+    @readonly
+    name;
+};
+
+annotate StoragesService.ProductFullType with {
+    @title: '{i18n>product.fullType.name}'
+    name;
+}
 
 annotate StoragesService.Storage with {
     @title: '{i18n>storage.name}'

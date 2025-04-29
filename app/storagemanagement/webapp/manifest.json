@@ -165,8 +165,8 @@
                     "GeographyCustomSection": {
                       "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.GeographyCustomSection",
                       "position": {
-                        "placement": "After",
-                        "anchor": "Products"
+                        "placement": "Before",
+                        "anchor": "Admin"
                       },
                       "title": "{i18n>com.storagemanagement.geography.label}"
                     }
@@ -187,6 +187,45 @@
                       "flexSettings": {
                         "designtime": "Default"
                       }
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "products/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true,
+                    "showRowCount": true,
+                    "selectionMode": "Single"
+                  },
+                  "columns": {
+                    "ProductTypeCustomColumn": {
+                      "header": "{i18n>com.storagemanagement.productType.label}",
+                      "width": "35%",
+                      "position": {
+                        "anchor": "DataField::quantityRemain",
+                        "placement": "Before"
+                      },
+                      "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.ProductTypeCustomColumn",
+                      "availability": "Default",
+                      "properties": [
+                        "product/fullType/name"
+                      ]
+                    },
+                    "ProductRemainQuantityCustomColumn": {
+                      "header": "{i18n>com.storagemanagement.product.remainQuantity.label}",
+                      "width": "35%",
+                      "horizontalAlign": "Right",
+                      "position": {
+                        "anchor": "DataField::storagesCount",
+                        "placement": "After"
+                      },
+                      "template": "com.yauheni.sapryn.storagemanagement.ext.fragment.RemainQuantityCustomColumn",
+                      "availability": "Default",
+                      "properties": [
+                        "quantityRemain"
+                      ]
                     }
                   }
                 }

@@ -1,0 +1,4 @@
+ID,name,description,group_code,position_code,subposition_code,fullType_code,barcode,createdAt,createdBy,modifiedAt,modifiedBy
+c1e5f223-b02f-4b80-8752-c1d0b8f80db1,Молоко "Светлый путь",Молоко,01,0101,010101,0101010001,1234567890123,2024-04-01T08:30:00Z,user1,2024-04-05T10:20:00Z,user2
+e5d07ad7-4bb6-4c3b-943f-91b3bfa5d70e,Хлеб "Вкусный",Пшеничный хлеб,01,0101,010101,0101010002,9876543210987,2024-04-02T09:00:00Z,user2,2024-04-06T11:00:00Z,user3
+b1fbe66a-2e9e-4fd1-8c81-60745fd5f86a,Сок "ФрутоНяня",Фруктовый сок,01,0201,020101,0201010001,4567891234567,2024-04-03T10:15:00Z,user1,2024-04-07T12:30:00Z,user4

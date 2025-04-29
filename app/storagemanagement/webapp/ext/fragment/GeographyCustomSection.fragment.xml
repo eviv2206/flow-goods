@@ -57,6 +57,7 @@
             width="100%"
             height="350px"
             click=".extension.com.yauheni.sapryn.storagemanagement.ext.controller.ObjectPageExt.onMapClick"
+            core:require="{formatter: 'com/yauheni/sapryn/storagemanagement/ext/util/Formatter'}"
         >
             <vbm:vos>
                 <vbm:Spots
@@ -64,7 +65,7 @@
                     scaleChangeable="false"
                 >
                     <vbm:items>
-                        <vbm:Spot position="{longitude};{latitude};0" />
+                        <vbm:Spot position="{path: 'longitude', formatter: 'formatter.formatLocation'};{path: 'latitude', formatter: 'formatter.formatLocation'};0" click=".extension.com.yauheni.sapryn.storagemanagement.ext.controller.ObjectPageExt.onClickSpot"/>
                     </vbm:items>
                 </vbm:Spots>
             </vbm:vos>

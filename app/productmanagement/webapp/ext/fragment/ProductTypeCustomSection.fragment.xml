@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+>
+    <l:VerticalLayout
+        id="idRolesVLayout"
+        width="100%"
+        class="sapUiTinyMargin"
+    >
+        <l:Grid
+            id="idRolesGrid"
+            defaultSpan="XL4 L4 M6 S12"
+            containerQuery='true'
+            hSpacing="0"
+            vSpacing="1"
+        >
+            <VBox visible="{= ${ui>/isEditable} === false}">
+                <Label
+                    text="{i18n>com.productmanagement.productType.group.label}"
+                    showColon="true"
+                />
+                <Text text="{group/name}" />
+            </VBox>
+            <VBox visible="{= ${ui>/isEditable} === false}">
+                <Label
+                    text="{i18n>com.productmanagement.productType.position.label}"
+                    showColon="true"
+                />
+                <Text text="{position/name}" />
+            </VBox>
+            <VBox visible="{= ${ui>/isEditable} === false}">
+                <Label
+                    text="{i18n>com.productmanagement.productType.subposition.label}"
+                    showColon="true"
+                />
+                <Text text="{subposition/name}" />
+            </VBox>
+            <VBox visible="{= ${ui>/isEditable} === false}">
+                <Label
+                    text="{i18n>com.productmanagement.productType.fullType.name.label}"
+                    showColon="true"
+                />
+                <Text text="{fullType/name}" />
+            </VBox>
+            <VBox visible="{= ${ui>/isEditable} === false}">
+                <Label
+                    text="{i18n>com.productmanagement.productType.code.label}"
+                    showColon="true"
+                />
+                <Text text="{fullType/code}" />
+            </VBox>
+        </l:Grid>
+    </l:VerticalLayout>
+</core:FragmentDefinition>

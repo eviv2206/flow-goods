@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:ndc="sap.ndc"
+>
+    <VBox>
+        <f:SimpleForm
+            id="idGeneralInfoForm"
+            layout="ResponsiveGridLayout"
+        >
+            <f:content>
+                <VBox>
+                    <Label
+                        text="{i18n>com.productmanagement.name.label}"
+                        showColon="true"
+                        required="{ui>/isEditable}"
+                    />
+                    <macros:Field
+                        id="idTitleField"
+                        metaPath="name"
+                    />
+                </VBox>
+                <VBox>
+                    <Label
+                        text="{i18n>com.productmanagement.description.label}"
+                        showColon="true"
+                    />
+                    <macros:Field
+                        id="idDescriptionField"
+                        metaPath="description"
+                    />
+                </VBox>
+                <VBox>
+                    <Label
+                        id="idBarcodeLabel"
+                        text="{i18n>com.productmanagement.barcode.label}"
+                        showColon="true"
+                    />
+                    <HBox id="idBarcodeVBox" width="100%">
+                        <macros:Field
+                            id="idBarcodeField"
+                            metaPath="barcode"
+                        />
+                        <ndc:BarcodeScannerButton
+                            visible="{ui>/isEditable}"
+                            id="idBarcodeScannerButton"
+                            scanSuccess=".extension.com.yauheni.sapryn.productmanagement.ext.controller.ObjectPageExt.onScanSuccess"
+                            scanFail=".extension.com.yauheni.sapryn.productmanagement.ext.controller.ObjectPageExt.onScanError"
+                        />
+                    </HBox>
+                </VBox>
+            </f:content>
+        </f:SimpleForm>
+    </VBox>
+</core:FragmentDefinition>
