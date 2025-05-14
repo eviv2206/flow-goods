@@ -15,7 +15,8 @@
     "app/storagemanagement",
     "app/productmanagement",
     "app/productmanagement",
-    "app/supplymanagement"
+    "app/supplymanagement",
+    "app/requestforsupplymanagement"
   ],
   "dependencies": {
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",

@@ -20,7 +20,6 @@ import cds.gen.com.yauheni.sapryn.flowgoods.ProductStorageMapEntity;
 import cds.gen.com.yauheni.sapryn.flowgoods.SupplierEntity;
 import cds.gen.com.yauheni.sapryn.flowgoods.SupplyEntity;
 import cds.gen.com.yauheni.sapryn.flowgoods.SupplyEntity_;
-import cds.gen.productsservice.ProductStorageMap;
 import cds.gen.suppliesservice.CreateSupplyContext;
 
 import lombok.AllArgsConstructor;

@@ -1,0 +1,1 @@
+using RequestsForSupplyService as service from '../../srv/cds/services/requestsForSupply-service/requestsForSupply-service';
